@@ -121,6 +121,10 @@ class InternalDayViewPage<T extends Object?> extends StatelessWidget {
   /// Emulate vertical line offset from hour line starts.
   final double emulateVerticalOffsetBy;
 
+  /// Setting the min height of an event tile such that event title is readable
+  /// when event duration difference is in range of 1 min to 15 min.
+  final bool isMinEventTileHeight;
+
   /// Defines a single day page.
   const InternalDayViewPage({
     Key? key,
@@ -157,6 +161,7 @@ class InternalDayViewPage<T extends Object?> extends StatelessWidget {
     required this.quarterHourIndicatorSettings,
     required this.emulateVerticalOffsetBy,
     required this.onTileDoubleTap,
+    this.isMinEventTileHeight = false,
   }) : super(key: key);
 
   @override
@@ -252,6 +257,7 @@ class InternalDayViewPage<T extends Object?> extends StatelessWidget {
                             timeLineWidth -
                             hourIndicatorSettings.offset -
                             verticalLineOffset,
+                        isMinEventTileHeight: isMinEventTileHeight,
                       ),
                     ),
                     TimeLine(

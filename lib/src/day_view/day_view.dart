@@ -223,6 +223,10 @@ class DayView<T extends Object?> extends StatefulWidget {
   /// Emulate vertical line offset from hour line starts.
   final double emulateVerticalOffsetBy;
 
+  /// Setting the min height of an event tile such that event title is readable
+  /// when event duration difference is in range of 1 min to 15 min.
+  final bool isMinEventTileHeight;
+
   /// Main widget for day view.
   const DayView({
     Key? key,
@@ -271,6 +275,7 @@ class DayView<T extends Object?> extends StatefulWidget {
     this.onHeaderTitleTap,
     this.emulateVerticalOffsetBy = 0,
     this.onEventDoubleTap,
+    this.isMinEventTileHeight = false,
   })  : assert(!(onHeaderTitleTap != null && dayTitleBuilder != null),
             "can't use [onHeaderTitleTap] & [dayTitleBuilder] simultaneously"),
         assert(timeLineOffset >= 0,
@@ -486,6 +491,7 @@ class DayViewState<T extends Object?> extends State<DayView<T>> {
                                 _quarterHourIndicatorSettings,
                             emulateVerticalOffsetBy:
                                 widget.emulateVerticalOffsetBy,
+                            isMinEventTileHeight: widget.isMinEventTileHeight,
                           ),
                         );
                       },
@@ -649,13 +655,17 @@ class DayViewState<T extends Object?> extends State<DayView<T>> {
     Rect boundary,
     DateTime startDuration,
     DateTime endDuration,
-  ) =>
+    double heightPerMinute, {
+    bool isMinEventTileHeight = false,
+  }) =>
       DefaultEventTile(
         date: date,
         events: events,
         boundary: boundary,
         startDuration: startDuration,
         endDuration: endDuration,
+        heightPerMinute: heightPerMinute,
+        isMinEventTileHeight: isMinEventTileHeight,
       );
 
   /// Default view header builder. This builder will be used if

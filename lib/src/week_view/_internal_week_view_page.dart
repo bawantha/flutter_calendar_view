@@ -141,6 +141,10 @@ class InternalWeekViewPage<T extends Object?> extends StatelessWidget {
   /// Emulate vertical line offset from hour line starts.
   final double emulateVerticalOffsetBy;
 
+  /// Setting the min height of an event tile such that event title is readable
+  /// when event duration difference is in range of 1 min to 15 min.
+  final bool isMinEventTileHeight;
+
   /// A single page for week view.
   const InternalWeekViewPage({
     Key? key,
@@ -183,6 +187,7 @@ class InternalWeekViewPage<T extends Object?> extends StatelessWidget {
     required this.showQuarterHours,
     required this.emulateVerticalOffsetBy,
     required this.onTileDoubleTap,
+    this.isMinEventTileHeight = false,
   }) : super(key: key);
 
   @override
@@ -343,6 +348,8 @@ class InternalWeekViewPage<T extends Object?> extends StatelessWidget {
                                         includeFullDayEvents: false,
                                       ),
                                       heightPerMinute: heightPerMinute,
+                                      isMinEventTileHeight:
+                                          isMinEventTileHeight,
                                     ),
                                   ],
                                 ),
